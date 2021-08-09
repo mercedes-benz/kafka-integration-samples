@@ -13,7 +13,7 @@ There are samples for different languages:
 
 We welcome any contributions.
 If you want to contribute to this project, please contact the Mercedes-Benz Connectivity Services GmbH to sign online our contributors license agreement. 
-You can send an email to connect-business@daimler.com. Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT.md) upfront. 
+You can send an email to connect-business@daimler.com. Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
 
 ## Code of Conduct
 
