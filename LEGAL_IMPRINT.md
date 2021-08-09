@@ -11,7 +11,7 @@ Plieninger Straße 150
 Deutschland/Germany
 
 Tel: +49 711 17 39012
-connect-business@daimler.com
+mbconnectivity-services@daimler.com
 
 Geschäftsführung/Management: Sten Rauch, Marcus Eisenhardt
 
