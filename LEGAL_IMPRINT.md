@@ -6,8 +6,9 @@ This file contains Legal Disclaimers for linking in Issues and Pull Requests.
 ## Mercedes-Benz Connectivity Services GmbH
 
 Mercedes-Benz Connectivity Services GmbH
-Plieninger Straße 150                                    
-70567 Stuttgart                   
+Industriestraße 19-21
+70565 Stuttgart
+                
 Deutschland/Germany
 
 Tel: +49 711 17 39012
