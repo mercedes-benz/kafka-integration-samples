@@ -12,7 +12,7 @@ Industriestraße 19-21
 Deutschland/Germany
 
 Tel: +49 711 17 39012
-mbconnectivity-services@daimler.com
+mbconnectivity-services@mercedes-benz.com
 
 Geschäftsführung/Management: Sten Rauch, Marcus Eisenhardt
 

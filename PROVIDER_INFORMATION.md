@@ -9,7 +9,7 @@ Industriestraße 19-21
 Deutschland/Germany
 
 Phone.: +49 711 17 39012
-E-mail: mbconnectivity-services@daimler.com
+E-mail: mbconnectivity-services@mercedes-benz.com
 
 
 Commercial Register: 727792

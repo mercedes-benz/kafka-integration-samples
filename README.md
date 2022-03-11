@@ -13,11 +13,11 @@ There are samples for different languages:
 
 We welcome any contributions.
 If you want to contribute to this project, please contact the Mercedes-Benz Connectivity Services GmbH to sign online our contributors license agreement. 
-You can send an email to mbconnectivity-services@daimler.com with subject "FOSS Contribution". Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
+You can send an email to mbconnectivity-services@mercedes-benz.com subject "FOSS Contribution". Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
 
 ## Code of Conduct
 
-Please read our [Code of Conduct](https://github.com/Daimler/daimler-foss/blob/master/CODE_OF_CONDUCT.md) as it is our base for interaction.
+Please read our [Code of Conduct](https://github.com/mercedes-benz/daimler-foss/blob/master/CODE_OF_CONDUCT.md) as it is our base for interaction.
 
 ## License
 
