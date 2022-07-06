@@ -1,0 +1,35 @@
+kafka-oauth-consumer.go
+===================
+
+The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data from a Kafka topic API.
+
+This is only a sample without support and liability to its correctness!
+
+Prerequisite
+------------
+
+The code is based on Go 1.18 and the confluent-kafka-go v1.8.2.
+
+Links:
+
+* https://github.com/confluentinc/confluent-kafka-go
+
+How to use
+----------
+
+In order to use the sample please change the following parameters.
+
+  PushApiUrl = 'PUSH_API_URL'
+  GroupId = 'YOUR_GROUP_ID'
+  CertLocation = 'PATH_TO_CERT'
+  TopicName = 'YOUR_TOPIC_NAME'
+  AuthUrl = 'OAUTH_TOKEN_API_URL'
+  ClientId = 'YOUR_CLIENT_ID'
+  ClientSecret = 'YOUR_CLIENT_SECRET'
+
+
+You also need to provide the the CA certificate location. The certificate file must be in PEM format.
+
+  CertLocation = './ca.pem'
+
+Copyright 2022 Mercedes-Benz Connectivity Services GmbH
