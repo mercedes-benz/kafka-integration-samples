@@ -7,6 +7,7 @@ There are samples for different languages:
 
 * Python [README](kafka-sample/python/README)
 * C# [README](kafka-sample/c%23/README)
+* Go [README](kafka-sample/golang/README)
 
 
 ## Contributing
