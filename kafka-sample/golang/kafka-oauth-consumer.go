@@ -6,16 +6,12 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"net/http"
-	"net/url"
+	"flag"
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
-	"strings"
 	"syscall"
-	"time"
 )
 
 const (
@@ -29,32 +25,62 @@ const (
 	ClientSecret = "YOUR_CLIENT_SECRET"  // use the secret you have received
 )
 
-type AuthResponse struct {
-	AccessToken   string `json:"access_token" default:""`
-	AccessExpires int64  `json:"expires_in" default:"0"`
-	TokenType     string `json:"token_type" default:""`
-	Scope         string `json:"scope" default:""`
+func forwardLogs(logsChan chan kafka.LogEvent) {
+	for logEvent := range logsChan {
+		var logLevel log.Level
+		switch logEvent.Level {
+		case 7:
+			logLevel = log.DebugLevel
+		case 6:
+		case 5:
+			logLevel = log.InfoLevel
+		case 4:
+			logLevel = log.WarnLevel
+		case 3:
+			logLevel = log.ErrorLevel
+		default:
+			log.Fatalf("[%v, %v] %v", logEvent.Name, logEvent.Tag, logEvent.Message)
+		}
+		log.StandardLogger().Logf(logLevel, "[%v, %v] %v", logEvent.Name, logEvent.Tag, logEvent.Message)
+	}
 }
 
 func main() {
+	log.SetFormatter(&log.TextFormatter{
+		ForceColors:   true,
+		DisableColors: false,
+		FullTimestamp: true,
+	})
+	level := parseArguments()
+	log.SetLevel(level)
+
+	log.Debug("Creating kafka consumer")
+
 	kafkaConsumer, err := kafka.NewConsumer(
 		// see https://docs.confluent.io/platform/current/clients/librdkafka/html/md_CONFIGURATION.html for full configuration documentation
 		&kafka.ConfigMap{
-			"bootstrap.servers": PushApiUrl,
-			"group.id":          GroupId,
-			"security.protocol": "SASL_SSL",
-			"sasl.mechanism":    "OAUTHBEARER",
-			"ssl.ca.location":   CertLocation,
-			//"debug":             "all",
+			"bootstrap.servers":                   PushApiUrl,
+			"group.id":                            GroupId,
+			"security.protocol":                   "SASL_SSL",
+			"sasl.mechanism":                      "OAUTHBEARER",
+			"sasl.oauthbearer.method":             "OIDC",
+			"sasl.oauthbearer.client.id":          ClientId,
+			"sasl.oauthbearer.client.secret":      ClientSecret,
+			"sasl.oauthbearer.token.endpoint.url": AuthUrl,
+			"ssl.ca.location":                     CertLocation,
+			"go.logs.channel.enable":              true,
+			"debug":                               "consumer,security",
 		},
 	)
 
 	if err != nil {
-		fmt.Printf("Failed creating consumer: %v\n", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
+	kafkaLogs := kafkaConsumer.Logs()
+
 	go consumeMessages(kafkaConsumer)
+	go forwardLogs(kafkaLogs)
 
 	// set up a channel for interrupting execution
 	sigChan := make(chan os.Signal, 1)
@@ -62,69 +88,37 @@ func main() {
 	<-sigChan
 }
 
+func parseArguments() log.Level {
+	var logLevelArg = flag.String("log", "info", "sets the log level")
+	flag.Parse()
+	level, err := log.ParseLevel(*logLevelArg)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return level
+}
+
 func consumeMessages(kafkaConsumer *kafka.Consumer) {
+	log.Debugf("Subscribing to topic %v", TopicName)
 	err := kafkaConsumer.Subscribe(TopicName, nil)
 
 	if err != nil {
-		fmt.Printf("Error during subsribing topic: %v\n", err)
-		return
+		log.Fatal(err)
 	}
 
+	log.Debug("Starting polling loop")
 	for {
 		result := kafkaConsumer.Poll(10000)
 
 		switch event := result.(type) {
-		case kafka.OAuthBearerTokenRefresh:
-			refreshBearerToken(kafkaConsumer)
 		case *kafka.Message:
 			// actual event processing possible
-			fmt.Printf("New message recieved: \n%v\n", string(event.Value))
+			log.Debug("New message received")
+			print(string(event.Value))
 		case kafka.Error:
-			fmt.Printf("Kafka consumer error: %v\n", event)
+			log.Errorf("Kafka consumer error: %v", event)
 		default:
-			fmt.Printf("No new message: %v\n", event)
+			log.Debugf("No new message: %v", event)
 		}
-	}
-}
-
-func refreshBearerToken(kafkaConsumer *kafka.Consumer) {
-	var authResponse AuthResponse
-	httpClient := http.Client{}
-
-	data := url.Values{}
-	data.Add("grant_type", "client_credentials")
-
-	httpAuthRequest, err := http.NewRequest("POST", AuthUrl, strings.NewReader(data.Encode()))
-
-	if err != nil {
-		fmt.Printf("Error during request building: %v\n", err)
-		return
-	}
-
-	httpAuthRequest.SetBasicAuth(ClientId, ClientSecret)
-	httpAuthRequest.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-
-	httpAuthResponse, err := httpClient.Do(httpAuthRequest)
-
-	if err != nil {
-		fmt.Printf("Error during auth request: %v\n", err)
-		return
-	}
-
-	err = json.NewDecoder(httpAuthResponse.Body).Decode(&authResponse)
-
-	if err != nil {
-		fmt.Printf("Error during response decoding: %v\n", err)
-		return
-	}
-
-	err = kafkaConsumer.SetOAuthBearerToken(kafka.OAuthBearerToken{
-		TokenValue: authResponse.AccessToken,
-		Expiration: time.Now().Add(time.Second * time.Duration(authResponse.AccessExpires)),
-	})
-
-	if err != nil {
-		fmt.Printf("Error during updating bearer token: %v\n", err)
-		return
 	}
 }
