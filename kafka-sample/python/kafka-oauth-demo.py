@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 #
@@ -6,104 +6,108 @@
 #
 # SPDX-License-Identifier: MIT
 
-# Load libraries, please replace with the way you integrate your libs.
-import pip
+import argparse
+import logging
 
-def install(package):
-    if hasattr(pip, 'main'):
-        pip.main(['install', package])
-    else:
-        pip._internal.main(['install', package])
+from confluent_kafka import Consumer
+from confluent_kafka.cimpl import KafkaException
 
+client_id = 'YOUR_CLIENT_ID'  # CHANGE HERE
+client_secret = 'YOUR_CLIENT_SECRET'  # CHANGE HERE
+topic = 'TOPIC_NAME'  # CHANGE HERE
+group = 'GROUP_NAME'  # you can change the postfix
+root_ca_file = './cluster-ca.crt'  # CHANGE HERE, put here the location of your CA certificate (must be PEM file)
 
-
-# Declarations and Parameters
-
-import ssl
-
-clientid = 'YOUR_CLIENT_ID' # CHANGE HERE
-pwd = 'YOUR_CLIENT_PWD'     # CHANGE HERE
-topic = 'TOPIC_NAME'        # CHANGE HERE
-group = 'GROUP_NAME'        # you can change the postfix
-root_ca_file = './ca.pem'   # CHANGE HERE, put here the location of your CA certificate (must be PEM file)
-
-broker_url = 'BROKER_URL'
-oauth_token_api_url = 'OAUTH_TOKEN_API_URL'
+bootstrap_url = 'BOOTSTRAP_URL'
+oauth_token_api_url = 'OAUTH_TOKEN_API_UR'
 
 security_protocol = 'SASL_SSL'
 sasl_mechanism = 'OAUTHBEARER'
-sasl_user = clientid
-sasl_pwd = pwd
 
 
-# Create a new context using system defaults, disable all but TLS1.2
-context = ssl.create_default_context(cafile=root_ca_file)
-context.options &= ssl.OP_NO_TLSv1
-context.options &= ssl.OP_NO_TLSv1_1
+def consume_kafka():
+    consumer = configure_consumer()
+    app_logger.info("Consumer created")
+    consumer.subscribe([topic])
+    app_logger.info('Subscribed to topic %s', topic)
 
-
-# The TokenProvider required for the OAuth authentication to retrieve the bearer token.
-
-from aiokafka.abc import AbstractTokenProvider
-from oauthlib.oauth2 import BackendApplicationClient
-from requests_oauthlib import OAuth2Session
-
-class CustomTokenProvider(AbstractTokenProvider):
-        async def token(self):
-            return await asyncio.get_running_loop().run_in_executor(
-                None, self._token)
-        
-        
-        def _token(self):
-            client = BackendApplicationClient(client_id=sasl_user)
-            oauth = OAuth2Session(client=client)            
-            token_json = oauth.fetch_token(token_url=oauth_token_api_url, client_secret=sasl_pwd)
-            print("Got token")
-            token = token_json['access_token']
-
-            return token
-
-
-# Simple loop to read messages from topic
-
-import asyncio
-from aiokafka import AIOKafkaConsumer
-from json import loads
-from aiokafka.errors import KafkaError
-
-
-print("Init consumer")
-
-consumer = AIOKafkaConsumer(
-    topic,
-    bootstrap_servers=[broker_url],
-    security_protocol = security_protocol,
-    ssl_context = context,
-    sasl_plain_username = sasl_user,
-    sasl_plain_password = sasl_pwd,
-    sasl_oauth_token_provider = CustomTokenProvider(),
-    sasl_mechanism = sasl_mechanism,
-    auto_offset_reset = 'earliest',
-    enable_auto_commit = True,
-    group_id=group,    
-    value_deserializer=lambda x: loads(x.decode('utf-8')))
-
-
-async def main():
-    install('aiokafka')
-    install('requests_oauthlib')
-
-    await consumer.start()
-    print("Got consumer")
-
+    app_logger.info("Starting poll loop")
     try:
-        async for message in consumer:
-            print("read msg ", message)
-            print('o {}'.format(message.value))
-    except Exception as ex:
-        print(ex)
+        while True:
+            msg = consumer.poll(timeout=1.0)
+            if msg is None:
+                app_logger.debug("No new messages")
+                continue
+            if msg.error():
+                raise KafkaException(msg.error())
+            else:
+                # Process the received message
+                print(msg.value().decode('utf-8'))
+                # commit errors can be handled with
+                # on_commit: Callable[[KafkaError, list[TopicPartition]], None] = commit_cb
+                # config['on_commit']=on_commit
+                consumer.commit(asynchronous=True)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        app_logger.info("shutting down consumer.")
+        consumer.close()
 
-if __name__ == "__main__":
-    main()
+
+def configure_consumer():
+    conf = {
+        'bootstrap.servers': bootstrap_url,
+        'security.protocol': security_protocol,
+        'sasl.mechanism': sasl_mechanism,
+        'sasl.oauthbearer.method': 'OIDC',
+        'sasl.oauthbearer.client.id': client_id,
+        'sasl.oauthbearer.client.secret': client_secret,
+        'sasl.oauthbearer.token.endpoint.url': oauth_token_api_url,
+        'ssl.ca.location': root_ca_file,
+        'group.id': group,
+        'auto.offset.reset': 'earliest',
+        'enable.auto.commit': True,
+    }
+    if args.kafka_debug != ["none"]:
+        conf['debug'] = 'consumer,security' if args.kafka_debug is None else ','.join(args.kafka_debug)
+
+    consumer_logger = logging.getLogger('consumer')
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter(LOG_FORMAT))
+    consumer_logger.addHandler(handler)
+
+    consumer = Consumer(conf, logger=consumer_logger)
+    return consumer
 
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(
+        prog="oidc-demo",
+        description="The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka \
+        and how they can read data from a Kafka topic API and using oidc.",
+    )
+    parser.add_argument(
+        '-log',
+        '--loglevel',
+        default='info',
+        help='set root loglevel, default=info'
+    )
+    parser.add_argument(
+        '-kafka-debug',
+        nargs='*',
+        help='set verbosity of kafka debug logs, disable with -kafka-debug=none. \
+        Only useful together with -log=debug. \
+        See CONFIGURATION.md in https://github.com/confluentinc/librdkafka for valid `debug` options, \n\
+        default=consumer security'
+    )
+    return parser.parse_args()
+
+
+if __name__ == '__main__':
+    args = parse_arguments()
+
+    LOG_FORMAT = '[%(name)s]: %(asctime)s - %(levelname)s - %(message)s'
+    logging.basicConfig(encoding='utf-8', level=args.loglevel.upper(), format=LOG_FORMAT)
+    app_logger = logging.getLogger("kafka-oauth-demo")
+
+    consume_kafka()
