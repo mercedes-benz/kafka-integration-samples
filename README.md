@@ -8,13 +8,14 @@ There are samples for different languages:
 * Python [README](kafka-sample/python/README)
 * C# [README](kafka-sample/c%23/README)
 * Go [README](kafka-sample/golang/README)
+* Java [README](kafka-sample/java/README)
 
 
 ## Contributing
 
 We welcome any contributions.
 If you want to contribute to this project, please contact the Mercedes-Benz Connectivity Services GmbH to sign online our contributors license agreement. 
-You can send an email to mbconnectivity-services@mercedes-benz.com subject "FOSS Contribution". Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
+You can email mbconnectivity-services@mercedes-benz.com subject "FOSS Contribution". Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
 
 ## Code of Conduct
 

@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version "$shadow_plugin_version"
+}
+
+group = 'com.mbcs'
+version = '0.1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(java_version)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = "com.mbcs.examples.kafka.Main"
+}
+
+dependencies {
+    // dependencies for kafka:
+    implementation "org.apache.kafka:kafka-clients:$kafka_clients_version"
+    runtimeOnly "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version" // needed for OAUTHBEARER
+
+    // dependencies to enable logging with log4j2:
+    implementation "org.apache.logging.log4j:log4j-slf4j2-impl:$log4j2_version"
+    implementation "org.apache.logging.log4j:log4j-core:$log4j2_version"
+    implementation "org.apache.logging.log4j:log4j-api:$log4j2_version"
+
+    // dependencies for the demo only:
+    implementation "commons-cli:commons-cli:$commons_cli_version"
+}
