@@ -82,4 +82,4 @@ confluent-kafka-go library as soon as it is available to your platform. In clien
 connections will be closed, as soon as the token expires. The client will automatically reconnect, but you will receive
 error logs.
 
-Copyright 2022 Mercedes-Benz Connectivity Services GmbH
+Copyright 2023 Mercedes-Benz Connectivity Services GmbH

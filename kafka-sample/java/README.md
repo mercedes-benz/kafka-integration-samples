@@ -51,4 +51,4 @@ After preparation, you can start the demo with
 java -jar build/libs/java-0.1.0-all.jar -t <YOUR_TOPIC_NAME>
 ```
 
-Copyright 2022 Mercedes-Benz Connectivity Services GmbH
+Copyright 2023 Mercedes-Benz Connectivity Services GmbH

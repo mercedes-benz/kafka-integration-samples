@@ -79,4 +79,4 @@ confluent-kafka-python library as soon as it is available to your platform. In c
 connections will be closed, as soon as the token expires. The client will automatically reconnect, but you will receive
 error logs.
 
-Copyright 2021 Mercedes-Benz Connectivity Services GmbH
+Copyright 2023 Mercedes-Benz Connectivity Services GmbH
