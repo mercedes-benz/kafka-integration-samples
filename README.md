@@ -5,10 +5,10 @@ via OAuth and read data from a secured topic.
 
 There are samples for different languages:
 
-* Python [README](kafka-sample/python/README)
-* C# [README](kafka-sample/c%23/README)
-* Go [README](kafka-sample/golang/README)
-* Java [README](kafka-sample/java/README)
+* Python [README](kafka-sample/python/README.md)
+* C# [README](kafka-sample/c%23/README.md)
+* Go [README](kafka-sample/golang/README.md)
+* Java [README](kafka-sample/java/README.md)
 
 
 ## Contributing
