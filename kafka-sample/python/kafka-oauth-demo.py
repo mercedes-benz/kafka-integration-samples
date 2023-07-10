@@ -12,14 +12,14 @@ import logging
 from confluent_kafka import Consumer
 from confluent_kafka.cimpl import KafkaException
 
-client_id = 'YOUR_CLIENT_ID'  # CHANGE HERE
-client_secret = 'YOUR_CLIENT_SECRET'  # CHANGE HERE
-topic = 'TOPIC_NAME'  # CHANGE HERE
-group = 'GROUP_NAME'  # you can change the postfix
-root_ca_file = './cluster-ca.crt'  # CHANGE HERE, put here the location of your CA certificate (must be PEM file)
+client_id = 'YOUR_CLIENT_ID'  # use the client you have received
+client_secret = 'YOUR_CLIENT_SECRET'  # use the secret you have received
+topic = f'vehiclesignals.{client_id}'  # use topic for the client you have received
+group = f'{client_id}.GROUP_ID_POSTFIX'  # you can change the postfix of your consumer group
+root_ca_file = './cluster-ca.crt'  # file path of your CA certificate (must be a PEM file)
 
-bootstrap_url = 'BOOTSTRAP_URL'
-oauth_token_api_url = 'OAUTH_TOKEN_API_UR'
+bootstrap_url = 'BOOTSTRAP_URL'  # use the correct broker url for your region
+oauth_token_api_url = 'OAUTH_TOKEN_API_URL'  # use the correct token API url for your region
 
 security_protocol = 'SASL_SSL'
 sasl_mechanism = 'OAUTHBEARER'

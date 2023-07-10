@@ -33,19 +33,19 @@ How to use
 In order to use the sample please change the following parameters. Those parameters should previously send to you.
 
 ```cs
-  var clientId = "YOUR_CLIENT_ID";               // CHANGE HERE
-  var clientSecret = "YOUR_CLIENT_SECRET";       // CHANGE HERE
-  var topic = "TOPIC_NAME";                      // CHANGE HERE
-  var consumerGroup = "CONSUMER_GROUP";          // CHANGE HERE            
+  var clientId = "YOUR_CLIENT_ID";                    // use the client you have received
+  var clientSecret = "YOUR_CLIENT_SECRET";            // use the secret you have received
+  var topic = $"vehiclesignals.{clientId}";           // use topic for the client you have received
+  var consumerGroup = $"{clientId}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
 
-  var brokerUrl = "BROKER_URL";                  // CHANGE HERE
-  var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";  // CHANGE HERE
+  var bootstrapUrl = "BOOTSTRAP_URL";                 // use the correct broker url for your region
+  var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";       // use the correct token API url for your region
 ```
 
 You also need to provide the CA certificate location.
 
 ```cs
-  var rootCaFile = @"cert.pem";                  // CHANGE HERE, put here the location of your CA certificate (must be PEM file)
+  var rootCaFile = @"cluster-ca.crt";                 // file path of your CA certificate (must be a PEM file)
 ```
 
 The certificate file must be in PEM format. You can extract the PEM from a .p12 using `openssl` and `sed`:

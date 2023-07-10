@@ -15,14 +15,13 @@ import (
 )
 
 const (
-	PushApiUrl   = "PUSH_API_URL"    // use the correct broker url for your region
-	GroupId      = "YOUR_GROUP_ID"   // you can change the postfix of your consumer group
-	CertLocation = "PATH_TO_CERT"    // file path of your CA certificate (must be a PEM file)
-	TopicName    = "YOUR_TOPIC_NAME" // use topic for the client you have received
-
-	AuthUrl      = "OAUTH_TOKEN_API_URL" // use the correct token API url for your region
-	ClientId     = "YOUR_CLIENT_ID"      // use the client you have received
-	ClientSecret = "YOUR_CLIENT_SECRET"  // use the secret you have received
+	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
+	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
+	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
+	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
+	RootCaFile       = "PATH_TO_CERT"                 // file path of your CA certificate (must be a PEM file)
+	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
+	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
 )
 
 func forwardLogs(logsChan chan kafka.LogEvent) {
@@ -59,15 +58,15 @@ func main() {
 	kafkaConsumer, err := kafka.NewConsumer(
 		// see https://docs.confluent.io/platform/current/clients/librdkafka/html/md_CONFIGURATION.html for full configuration documentation
 		&kafka.ConfigMap{
-			"bootstrap.servers":                   PushApiUrl,
+			"bootstrap.servers":                   BootstrapUrl,
 			"group.id":                            GroupId,
 			"security.protocol":                   "SASL_SSL",
 			"sasl.mechanism":                      "OAUTHBEARER",
 			"sasl.oauthbearer.method":             "OIDC",
 			"sasl.oauthbearer.client.id":          ClientId,
 			"sasl.oauthbearer.client.secret":      ClientSecret,
-			"sasl.oauthbearer.token.endpoint.url": AuthUrl,
-			"ssl.ca.location":                     CertLocation,
+			"sasl.oauthbearer.token.endpoint.url": OauthTokenApiUrl,
+			"ssl.ca.location":                     RootCaFile,
 			"go.logs.channel.enable":              true,
 			"debug":                               "consumer,security",
 		},
