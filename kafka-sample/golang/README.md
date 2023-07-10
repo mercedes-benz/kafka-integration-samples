@@ -41,14 +41,14 @@ In order to use the sample please change the following parameters.
 package main
 
 const (
-	PushApiUrl   = "PUSH_API_URL"    // use the correct broker url for your region
-	GroupId      = "YOUR_GROUP_ID"   // you can change the postfix of your consumer group
-	CertLocation = "PATH_TO_CERT"    // file path of your CA certificate (must be a PEM file)
-	TopicName    = "YOUR_TOPIC_NAME" // use topic for the client you have received
+	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
+	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
+	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
+	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
+	RootCaFile       = "PATH_TO_CERT"                 // file path of your CA certificate (must be a PEM file)
+	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
+	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
 
-	AuthUrl      = "OAUTH_TOKEN_API_URL" // use the correct token API url for your region
-	ClientId     = "YOUR_CLIENT_ID"      // use the client you have received
-	ClientSecret = "YOUR_CLIENT_SECRET"  // use the secret you have received
 )
 ```
 
@@ -81,5 +81,16 @@ confluent-kafka-go supports refreshing your oauth token automatically starting f
 confluent-kafka-go library as soon as it is available to your platform. In client versions before 2.2.0, broker
 connections will be closed, as soon as the token expires. The client will automatically reconnect, but you will receive
 error logs.
+
+The bundled librdkafka of confluent-kafka-go does not support OIDC on all systems. If you get error logs mentioning that
+some Configuration properties are not supported on this build, you either need to install the
+underlying [librdkafka](https://github.com/confluentinc/librdkafka) library on your system and build the project using:
+
+```bash
+go build -tags dynamic kafka-oauth-consumer.go 
+```
+
+or implement a custom login callback. Details for installing librdkafka can be
+found [here](https://github.com/confluentinc/confluent-kafka-go#installing-librdkafka).
 
 Copyright 2023 Mercedes-Benz Connectivity Services GmbH

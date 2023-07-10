@@ -36,9 +36,9 @@ clientSecret="YOUR_CLIENT_SECRET";
 # use the correct token API url for your region:
 sasl.oauthbearer.token.endpoint.url=OAUTH_TOKEN_API_URL
 # you can change the postfix of your consumer group:
-group.id=YOUR_GROUP_ID
-# use the correct broker url for your region
-bootstrap.servers=bootstrap.msg-stream-dev.connect-business.net:443
+group.id=YOUR_CLIENT_ID.GROUP_ID_POSTFIX
+# use the correct bootstrap url for your region
+bootstrap.servers=BOOTSTRAP_URL
 # file path of the .p12 truststore you received:
 ssl.truststore.location=PATH_TO_TRUSTSTORE
 # password of the .p12 truststore you received:
