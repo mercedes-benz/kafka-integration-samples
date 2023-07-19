@@ -1,50 +1,30 @@
 package com.mbcs.examples.kafka;
 
-import org.apache.commons.cli.*;
+
+import org.apache.commons.cli.CommandLine;
 
 import java.io.IOException;
 
 public class Main {
+
     public static void main(String[] args) {
-        CommandLineParser parser = new DefaultParser();
+        ConsumerUtils consumer = new ConsumerUtils();
+        KafkaSampleCliParser parser = new KafkaSampleCliParser();
 
-        Options options = new Options();
-        options.addOption(Option.builder("t")
-                .longOpt("topic")
-                .desc("topic to subscribe to")
-                .required()
-                .hasArg()
-                .argName("topic name")
-                .type(String.class)
-                .build());
-        options.addOption(Option.builder("c")
-                .longOpt("config")
-                .desc("path to kafka consumer config file")
-                .hasArg()
-                .argName("config file path")
-                .type(String.class)
-                .build());
-
-        CommandLine cmd;
+        String consumerConfig = null;
         try {
-            cmd = parser.parse(options, args);
-        } catch (ParseException e) {
-            printHelp(options);
-            return;
-        }
+            CommandLine cmd = parser.parse(args);
+            String topic = cmd.getOptionValue("t");
+            consumerConfig = cmd.getOptionValue("c", "consumer.properties");
 
-        String topic = cmd.getOptionValue("t");
-        String consumerConfig = cmd.getOptionValue("c", "consumer.properties");
-        try {
-            ConsumerUtils.consumeFromTopic(topic, consumerConfig);
+            consumer.consumeFromTopic(topic, consumerConfig);
+
         } catch (IOException e) {
             System.err.println("Consumer config file '" + consumerConfig + "' could not be opened.");
-            printHelp(options);
+            parser.printHelp();
+        } catch (Exception e) {
+            parser.printHelp();
         }
     }
 
-    private static void printHelp(Options options) {
-        HelpFormatter hf = new HelpFormatter();
-        hf.printHelp("java -jar <executable .jar path>", options, true);
-    }
 }

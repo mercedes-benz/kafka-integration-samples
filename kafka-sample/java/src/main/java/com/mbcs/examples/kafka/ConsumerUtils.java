@@ -15,7 +15,7 @@ import java.util.Properties;
 public class ConsumerUtils {
     private static final Logger log = LoggerFactory.getLogger(ConsumerUtils.class);
 
-    private static Properties loadConfig(String filePath) throws IOException {
+    private Properties loadConfig(String filePath) throws IOException {
         final Properties cfg = new Properties();
         try (FileReader configFile = new FileReader(filePath)) {
             cfg.load(configFile);
@@ -30,7 +30,8 @@ public class ConsumerUtils {
      * @param configPath path to config file for the consumer
      * @throws IOException when config file can't be opened
      */
-    public static void consumeFromTopic(String topicName, String configPath) throws IOException {
+    @SuppressWarnings("InfiniteLoopStatement") // should run until killed by user.
+    public void consumeFromTopic(String topicName, String configPath) throws IOException {
         Properties props = loadConfig(configPath);
         try (final KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props)) {
             consumer.subscribe(List.of(topicName));
