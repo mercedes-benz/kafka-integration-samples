@@ -14,8 +14,8 @@ There are samples for different languages:
 ## Contributing
 
 We welcome any contributions.
-If you want to contribute to this project, please contact the Mercedes-Benz Connectivity Services GmbH to sign online our contributors license agreement. 
-You can email mbconnectivity-services@mercedes-benz.com subject "FOSS Contribution". Here you can read the [contributors license agreement](CONTRIBUTORS_LICENSE_AGREEMENT_MBCS.pdf) upfront. 
+If you want to contribute to this project, please contact the Mercedes-Benz Connectivity Services GmbH to sign our contributors license agreement. 
+You can email us via mbconnectivity-services@mercedes-benz.com subject "FOSS Contribution". 
 
 ## Code of Conduct
 
