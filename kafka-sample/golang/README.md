@@ -22,14 +22,13 @@ go install
 go build kafka-oauth-consumer.go
 ```
 
-On linux systems, the client expects the hosts' ca-certificate at `/etc/pki/tls/ca-bundle.crt` (fedora/redhat defaults).
-If your systems default location differs from that (e.g. Debian/Ubuntu), please make sure to copy or symlink the
-certificate.
+Go applications use the operating system's default trusted root CA certificates for secure connections. Please ensure
+that your system has the Let's Encrypt root certificates installed. These certificates are usually included in the
+system's trusted root store by default. If not, please install them manually.
 
-Example for Debian/Ubuntu distributions:
+For Debian/Ubuntu distributions, the CA certificates can be updated as:
 ```bash
-mkdir -p /etc/pki/tls/certs
-ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt
+sudo update-ca-certificates
 ```
 
 How to use
@@ -43,24 +42,14 @@ package main
 const (
 	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
 	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
+	scope            = "SCOPE"                        // use the scope, you have received
 	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
 	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
-	RootCaFile       = "PATH_TO_CERT"                 // file path of your CA certificate (must be a PEM file)
 	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
 	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
 
 )
 ```
-
-You also need to provide the CA certificate location. The certificate file must be in PEM format. You can extract the
-PEM from a .p12 using `openssl` and `sed`:
-
-```bash
-openssl pkcs12 -in cluster-ca.p12 -nokeys | \
-sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cluster-ca.crt
-```
-
-Or export it, using a GUI-based tool like [keystore explorer](https://keystore-explorer.org/)
 
 after preparation, you can start the demo with
 

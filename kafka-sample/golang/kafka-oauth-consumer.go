@@ -7,19 +7,20 @@ package main
 
 import (
 	"flag"
-	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
-	log "github.com/sirupsen/logrus"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
 	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
 	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
+	scope            = "SCOPE"                        // use the scope, you have received
 	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
 	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
-	RootCaFile       = "PATH_TO_CERT"                 // file path of your CA certificate (must be a PEM file)
 	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
 	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
 )
@@ -65,8 +66,8 @@ func main() {
 			"sasl.oauthbearer.method":             "OIDC",
 			"sasl.oauthbearer.client.id":          ClientId,
 			"sasl.oauthbearer.client.secret":      ClientSecret,
+			"sasl.oauthbearer.scope":              scope,
 			"sasl.oauthbearer.token.endpoint.url": OauthTokenApiUrl,
-			"ssl.ca.location":                     RootCaFile,
 			"go.logs.channel.enable":              true,
 			"debug":                               "consumer,security",
 		},

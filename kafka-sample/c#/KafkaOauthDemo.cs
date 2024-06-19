@@ -15,9 +15,9 @@ namespace KafkaConsumer
 
             var clientId = "YOUR_CLIENT_ID";                    // use the client you have received
             var clientSecret = "YOUR_CLIENT_SECRET";            // use the secret you have received
+            var scope = "SCOPE";                                // use the scope you have received
             var topic = $"vehiclesignals.{clientId}";           // use topic for the client you have received
             var consumerGroup = $"{clientId}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
-            var rootCaFile = @"cluster-ca.crt";                 // file path of your CA certificate (must be a PEM file)
 
             var bootstrapUrl = "BOOTSTRAP_URL";                 // use the correct broker url for your region
             var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";       // use the correct token API url for your region
@@ -32,7 +32,6 @@ namespace KafkaConsumer
                 BootstrapServers = bootstrapUrl,
                 GroupId = consumerGroup,
 
-                SslCaLocation = rootCaFile,
                 SslEndpointIdentificationAlgorithm = sslEndpointIdentificationAlgorithm,
                 SecurityProtocol = securityProtocol,
                 SaslMechanism = saslMechanism,
@@ -40,6 +39,7 @@ namespace KafkaConsumer
                 SaslOauthbearerMethod = SaslOauthbearerMethod.Oidc,
                 SaslOauthbearerClientId = clientId,
                 SaslOauthbearerClientSecret = clientSecret,
+                SaslOauthbearerScope = scope,
                 SaslOauthbearerTokenEndpointUrl = oauthTokenApiUrl,
 
                 Debug = "consumer,security",

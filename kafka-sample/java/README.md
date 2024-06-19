@@ -23,6 +23,15 @@ you can use the gradle `shadowJar` task to build an executable [jarfile](build/l
 gradle shadowJar
 ```
 
+Please ensure that your Java environment includes Let's Encrypt CA certificates in its truststore to securely connect
+to our server. If not, please ensure that your system has the Let's Encrypt root certificates installed. These
+certificates are usually included in the system's trusted root store by default. If not, please install them manually.
+
+For Debian/Ubuntu distributions, the CA certificates can be updated as:
+```bash
+sudo update-ca-certificates
+```
+
 How to use
 ----------
 
@@ -32,17 +41,14 @@ In order to use the sample please populate at least following configurations of 
 # use the clientId and clientSecret you have received:
 sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \
 clientId="YOUR_CLIENT_ID" \
-clientSecret="YOUR_CLIENT_SECRET";
+clientSecret="YOUR_CLIENT_SECRET" \
+scope="SCOPE";
 # use the correct token API url for your region:
 sasl.oauthbearer.token.endpoint.url=OAUTH_TOKEN_API_URL
 # you can change the postfix of your consumer group:
 group.id=YOUR_CLIENT_ID.GROUP_ID_POSTFIX
 # use the correct bootstrap url for your region
 bootstrap.servers=BOOTSTRAP_URL
-# file path of the .p12 truststore you received:
-ssl.truststore.location=PATH_TO_TRUSTSTORE
-# password of the .p12 truststore you received:
-ssl.truststore.password=TRUSTSTORE_PASSWORD
 ```
 
 After preparation, you can start the demo with
