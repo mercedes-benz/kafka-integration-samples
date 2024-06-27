@@ -20,8 +20,8 @@ namespace KafkaConsumer
             var topic = $"vehiclesignals.{clientName}";           // use topic for the client you have received
             var consumerGroup = $"{clientName}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
 
-            var bootstrapUrl = "bootstrap.streaming-preprod.connect-business.net:443";                 // use the correct broker url for your region
-            var oauthTokenApiUrl = "https://ssoalpha.dvb.corpinter.net/v1/token";       // use the correct token API url for your region
+            var bootstrapUrl = "BOOTSTRAP_URL";                 // use the correct broker url for your region
+            var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";       // use the correct token API url for your region
 
             var securityProtocol = SecurityProtocol.SaslSsl;
             var saslMechanism = SaslMechanism.OAuthBearer;
