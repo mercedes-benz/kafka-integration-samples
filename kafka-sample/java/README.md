@@ -46,7 +46,7 @@ scope="SCOPE";
 # use the correct token API url for your region:
 sasl.oauthbearer.token.endpoint.url=OAUTH_TOKEN_API_URL
 # you can change the postfix of your consumer group:
-group.id=YOUR_CLIENT_ID.GROUP_ID_POSTFIX
+group.id=YOUR_CLIENT_NAME.GROUP_ID_POSTFIX
 # use the correct bootstrap url for your region
 bootstrap.servers=BOOTSTRAP_URL
 ```

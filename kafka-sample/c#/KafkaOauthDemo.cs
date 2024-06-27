@@ -13,14 +13,15 @@ namespace KafkaConsumer
         static void Main()
         {
 
-            var clientId = "YOUR_CLIENT_ID";                    // use the client you have received
-            var clientSecret = "YOUR_CLIENT_SECRET";            // use the secret you have received
-            var scope = "SCOPE";                                // use the scope you have received
-            var topic = $"vehiclesignals.{clientId}";           // use topic for the client you have received
-            var consumerGroup = $"{clientId}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
+            var clientName = "YOUR_CLIENT_NAME";                  // use the client name you have received
+            var clientId = "YOUR_CLIENT_ID";                      // use the client id you have received
+            var clientSecret = "YOUR_CLIENT_SECRET";              // use the secret you have received
+            var scope = "SCOPE";                                  // use the scope you have received
+            var topic = $"vehiclesignals.{clientName}";           // use topic for the client you have received
+            var consumerGroup = $"{clientName}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
 
-            var bootstrapUrl = "BOOTSTRAP_URL";                 // use the correct broker url for your region
-            var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";       // use the correct token API url for your region
+            var bootstrapUrl = "bootstrap.streaming-preprod.connect-business.net:443";                 // use the correct broker url for your region
+            var oauthTokenApiUrl = "https://ssoalpha.dvb.corpinter.net/v1/token";       // use the correct token API url for your region
 
             var securityProtocol = SecurityProtocol.SaslSsl;
             var saslMechanism = SaslMechanism.OAuthBearer;

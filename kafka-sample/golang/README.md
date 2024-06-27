@@ -40,13 +40,14 @@ In order to use the sample please change the following parameters.
 package main
 
 const (
-	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
-	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
-	scope            = "SCOPE"                        // use the scope, you have received
-	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
-	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
-	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
-	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
+	ClientName       = "YOUR_CLIENT_NAME"	            // use the client name you have received
+	ClientId         = "YOUR_CLIENT_ID"                 // use the client id you have received
+	ClientSecret     = "YOUR_CLIENT_SECRET"             // use the secret you have received
+	Scope            = "SCOPE"                          // use the scope, you have received
+	TopicName        = "vehiclesignals." + ClientName   // use topic for the client you have received
+	GroupId          = ClientName + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
+	BootstrapUrl     = "BOOTSTRAP_URL"                  // use the correct broker url for your region
+	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"            // use the correct token API url for your region
 
 )
 ```
