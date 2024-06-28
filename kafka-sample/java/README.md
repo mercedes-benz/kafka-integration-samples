@@ -25,7 +25,7 @@ gradle shadowJar
 
 
 Our Kafka server uses Let’s Encrypt CA for SSL/TLS certificates. These certificates are usually included in the default 
-truststore of java environment. If not, please update your Java version.
+truststore of java environment. If not, please update your java version.
 
 
 How to use
