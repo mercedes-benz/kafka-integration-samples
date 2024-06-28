@@ -1,7 +1,8 @@
 KafkaOauthDemo
 ===================
 
-The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data from a Kafka topic API and.
+The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data 
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -17,11 +18,12 @@ Package Links:
 
 Refer to [c#.proj](c%23.csproj) for version details and if you want to update versions.
 
-C# applications use the operating system's default trusted root CA certificates for secure connections. Please ensure
-that your system has the Let's Encrypt root certificates installed. These certificates are usually included in the
-system's trusted root store by default. If not, please install them manually.
+Our Kafka server uses Let’s Encrypt CA for SSL/TLS certificates. Confluent.Kafka library use the operating system's 
+default trusted root CA certificates for secure connections. Please ensure that your system has the Let's Encrypt root 
+certificates installed. These certificates are usually included in the system's trusted root store by default. If not, 
+please install them manually.
 
-For Debian/Ubuntu distributions, the CA certificates can be updated as:
+For Debian/Ubuntu distributions, the system CA certificates can be updated as:
 ```bash
 sudo update-ca-certificates
 ```

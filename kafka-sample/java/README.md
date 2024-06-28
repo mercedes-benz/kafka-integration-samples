@@ -2,7 +2,7 @@ Java oauth kafka consumer
 ===================
 
 The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data
-from a Kafka topic API.
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -23,14 +23,10 @@ you can use the gradle `shadowJar` task to build an executable [jarfile](build/l
 gradle shadowJar
 ```
 
-Please ensure that your Java environment includes Let's Encrypt CA certificates in its truststore to securely connect
-to our server. If not, please ensure that your system has the Let's Encrypt root certificates installed. These
-certificates are usually included in the system's trusted root store by default. If not, please install them manually.
 
-For Debian/Ubuntu distributions, the CA certificates can be updated as:
-```bash
-sudo update-ca-certificates
-```
+Our Kafka server uses Let’s Encrypt CA for SSL/TLS certificates. These certificates are usually included in the default 
+truststore of java environment. If not, please update your Java version.
+
 
 How to use
 ----------

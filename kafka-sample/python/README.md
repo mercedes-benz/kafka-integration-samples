@@ -2,7 +2,7 @@ kafka-oauth-demo.py
 ===================
 
 The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data
-from a Kafka topic API and.
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -22,11 +22,12 @@ You can use the [requirements.txt](./requirements.txt) to install the dependenci
 pip install -r requirements.txt
 ```
 
-Please ensure that your Python environment includes Let's Encrypt CA certificates in its truststore to securely connect 
-to our server. If not, please ensure that your system has the Let's Encrypt root certificates installed. These 
-certificates are usually included in the system's trusted root store by default. If not, please install them manually.
+Our Kafka server uses Let’s Encrypt CA for SSL/TLS certificates. The confluent-kafka-python-library by default uses the 
+operating system's default trusted root CA certificates for secure connections. Please ensure that your system has the 
+Let's Encrypt root certificates installed. These certificates are usually included in the system's trusted root store by
+default. If not, please install them manually.
 
-For Debian/Ubuntu distributions, the CA certificates can be updated as:
+For Debian/Ubuntu distributions, the system CA certificates can be updated as:
 ```bash
 sudo update-ca-certificates
 ```

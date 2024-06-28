@@ -63,7 +63,7 @@ def configure_consumer():
         'sasl.oauthbearer.method': 'OIDC',
         'sasl.oauthbearer.client.id': client_id,
         'sasl.oauthbearer.client.secret': client_secret,
-        'sasl.oauthbearer.scope': scope
+        'sasl.oauthbearer.scope': scope,
         'sasl.oauthbearer.token.endpoint.url': oauth_token_api_url,
         'group.id': group,
         'auto.offset.reset': 'earliest',
