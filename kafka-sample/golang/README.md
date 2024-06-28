@@ -35,7 +35,7 @@ sudo update-ca-certificates
 How to use
 ----------
 
-In order to use the sample please change the following parameters.
+In order to use the sample, please substitute the following parameters with those you have received via secure email.
 
 ```go
 package main
@@ -44,7 +44,7 @@ const (
 	ClientName       = "YOUR_CLIENT_NAME"	            // use the client name you have received
 	ClientId         = "YOUR_CLIENT_ID"                 // use the client id you have received
 	ClientSecret     = "YOUR_CLIENT_SECRET"             // use the secret you have received
-	Scope            = "SCOPE"                          // use the scope, you have received
+	Scope            = "SCOPE"                          // use the correct scope for your region
 	TopicName        = "vehiclesignals." + ClientName   // use topic for the client you have received
 	GroupId          = ClientName + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
 	BootstrapUrl     = "BOOTSTRAP_URL"                  // use the correct broker url for your region
@@ -84,4 +84,4 @@ go build -tags dynamic kafka-oauth-consumer.go
 or implement a custom login callback. Details for installing librdkafka can be
 found [here](https://github.com/confluentinc/confluent-kafka-go#installing-librdkafka).
 
-Copyright 2023 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024 Mercedes-Benz Connectivity Services GmbH

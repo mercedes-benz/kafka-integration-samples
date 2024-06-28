@@ -16,7 +16,7 @@ namespace KafkaConsumer
             var clientName = "YOUR_CLIENT_NAME";                  // use the client name you have received
             var clientId = "YOUR_CLIENT_ID";                      // use the client id you have received
             var clientSecret = "YOUR_CLIENT_SECRET";              // use the secret you have received
-            var scope = "SCOPE";                                  // use the scope you have received
+            var scope = "SCOPE";                                  // use the correct scope for your region
             var topic = $"vehiclesignals.{clientName}";           // use topic for the client you have received
             var consumerGroup = $"{clientName}.GROUP_ID_POSTFIX"; // you can change the postfix of your consumer group
 

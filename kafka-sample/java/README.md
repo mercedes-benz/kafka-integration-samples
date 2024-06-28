@@ -34,7 +34,7 @@ How to use
 In order to use the sample please populate at least following configurations of the [consumer.properties file](consumer.properties).
 
 ```properties
-# use the clientId and clientSecret you have received:
+# use the clientId and clientSecret you have received along with the correct scope for your region:
 sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \
 clientId="YOUR_CLIENT_ID" \
 clientSecret="YOUR_CLIENT_SECRET" \
@@ -53,4 +53,4 @@ After preparation, you can start the demo with
 java -jar build/libs/java-0.1.0-all.jar -t <YOUR_TOPIC_NAME>
 ```
 
-Copyright 2023 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024 Mercedes-Benz Connectivity Services GmbH

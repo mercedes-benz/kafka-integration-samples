@@ -15,7 +15,7 @@ from confluent_kafka.cimpl import KafkaException
 client_name = 'YOUR_CLIENT_NAME'             # use the client name you have received
 client_id = 'YOUR_CLIENT_ID'                 # use the client you have received
 client_secret = 'YOUR_CLIENT_SECRET'         # use the secret you have received
-scope = 'SCOPE'                              # use the scope you have received
+scope = 'SCOPE'                              # use the correct scope for your region
 topic = f'vehiclesignals.{client_name}'      # use topic for the client you have received
 group = f'{client_name}.GROUP_ID_POSTFIX'    # you can change the postfix of your consumer group
 

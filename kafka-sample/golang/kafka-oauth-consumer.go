@@ -19,7 +19,7 @@ const (
 	ClientName       = "YOUR_CLIENT_NAME"               // use the client name you have received
 	ClientId         = "YOUR_CLIENT_ID"                 // use the client id you have received
 	ClientSecret     = "YOUR_CLIENT_SECRET"             // use the secret you have received
-	Scope            = "SCOPE"                          // use the scope, you have received
+	Scope            = "SCOPE"                          // use the correct scope for your region
 	TopicName        = "vehiclesignals." + ClientName   // use topic for the client you have received
 	GroupId          = ClientName + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
 	BootstrapUrl     = "BOOTSTRAP_URL"                  // use the correct broker url for your region
