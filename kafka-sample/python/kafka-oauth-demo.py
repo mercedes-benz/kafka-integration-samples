@@ -12,12 +12,11 @@ import logging
 from confluent_kafka import Consumer
 from confluent_kafka.cimpl import KafkaException
 
-client_name = 'YOUR_CLIENT_NAME'             # use the client name you have received
-client_id = 'YOUR_CLIENT_ID'                 # use the client you have received
-client_secret = 'YOUR_CLIENT_SECRET'         # use the secret you have received
+client_id = 'YOUR_CLIENT_ID'                 # If you are an MBCon customer, please use the client id you have received
+client_secret = 'YOUR_CLIENT_SECRET'         # If you are an MBCon customer, please use the secret you have received
 scope = 'SCOPE'                              # use the correct scope for your region
-topic = f'vehiclesignals.{client_name}'      # use topic for the client you have received
-group = f'{client_name}.GROUP_ID_POSTFIX'    # you can change the postfix of your consumer group
+topic = 'YOUR_DEDICATED_TOPIC'               # If you are an MBCon customer, please use topic name as 'vehiclesignals.<client name>'
+group = 'CONSUMER_GROUP'                     # If you are an MBCon customer, please use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE'
 
 bootstrap_url = 'BOOTSTRAP_URL'              # use the correct broker url for your region
 oauth_token_api_url = 'OAUTH_TOKEN_API_URL'  # use the correct token API url for your region

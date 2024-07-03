@@ -22,7 +22,7 @@ You can use the [requirements.txt](./requirements.txt) to install the dependenci
 pip install -r requirements.txt
 ```
 
-Our Kafka server uses Let’s Encrypt CA for SSL/TLS certificates. The confluent-kafka-python-library by default uses the 
+In this example we assume to use Let’s Encrypt CA for SSL/TLS certificates. The confluent-kafka-python-library by default uses the 
 operating system's default trusted root CA certificates for secure connections. Please ensure that your system has the 
 Let's Encrypt root certificates installed. These certificates are usually included in the system's trusted root store by
 default. If not, please install them manually.
@@ -35,15 +35,14 @@ sudo update-ca-certificates
 How to use
 ----------
 
-In order to use the sample, please substitute the following parameters with those you have received via secure email.
+To use the sample, please change the following parameters, which should have been sent to you beforehand.
 
 ```python
-client_name = 'YOUR_CLIENT_NAME'             # use the client name you have received
-client_id = 'YOUR_CLIENT_ID'                 # use the client you have received
-client_secret = 'YOUR_CLIENT_SECRET'         # use the secret you have received
+client_id = 'YOUR_CLIENT_ID'                 # If you are an MBCon customer, please use the client id you have received
+client_secret = 'YOUR_CLIENT_SECRET'         # If you are an MBCon customer, please use the secret you have received
 scope = 'SCOPE'                              # use the correct scope for your region
-topic = f'vehiclesignals.{client_name}'      # use topic for the client you have received
-group = f'{client_name}.GROUP_ID_POSTFIX'    # you can change the postfix of your consumer group
+topic = 'YOUR_DEDICATED_TOPIC'               # If you are an MBCon customer, please use topic name as 'vehiclesignals.<client name>'
+group = 'CONSUMER_GROUP'                     # If you are an MBCon customer, please use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE'
 
 bootstrap_url = 'BOOTSTRAP_URL'              # use the correct broker url for your region
 oauth_token_api_url = 'OAUTH_TOKEN_API_URL'  # use the correct token API url for your region
