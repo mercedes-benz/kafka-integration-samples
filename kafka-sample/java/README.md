@@ -2,7 +2,7 @@ Java oauth kafka consumer
 ===================
 
 The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data
-from a Kafka topic API.
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -23,26 +23,28 @@ you can use the gradle `shadowJar` task to build an executable [jarfile](build/l
 gradle shadowJar
 ```
 
+
+In this example we assume to use Let’s Encrypt CA for SSL/TLS certificates. These certificates are usually included in the default 
+truststore of java environment. If not, please update your java version.
+
+
 How to use
 ----------
 
-In order to use the sample please populate at least following configurations of the [consumer.properties file](consumer.properties).
+To use the sample please change at least the following configurations of the [consumer.properties file](consumer.properties).
 
 ```properties
-# use the clientId and clientSecret you have received:
+# if you are an MBCon customer, use the clientId and clientSecret you have received along with the correct scope for your region:
 sasl.jaas.config=org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required \
 clientId="YOUR_CLIENT_ID" \
-clientSecret="YOUR_CLIENT_SECRET";
+clientSecret="YOUR_CLIENT_SECRET" \
+scope="SCOPE";
 # use the correct token API url for your region:
 sasl.oauthbearer.token.endpoint.url=OAUTH_TOKEN_API_URL
-# you can change the postfix of your consumer group:
-group.id=YOUR_CLIENT_ID.GROUP_ID_POSTFIX
+# if you are an MBCon customer, use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE':
+group.id=CONSUMER_GROUP
 # use the correct bootstrap url for your region
 bootstrap.servers=BOOTSTRAP_URL
-# file path of the .p12 truststore you received:
-ssl.truststore.location=PATH_TO_TRUSTSTORE
-# password of the .p12 truststore you received:
-ssl.truststore.password=TRUSTSTORE_PASSWORD
 ```
 
 After preparation, you can start the demo with
@@ -51,4 +53,4 @@ After preparation, you can start the demo with
 java -jar build/libs/java-0.1.0-all.jar -t <YOUR_TOPIC_NAME>
 ```
 
-Copyright 2023 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024 Mercedes-Benz Connectivity Services GmbH

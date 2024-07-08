@@ -12,13 +12,13 @@ import logging
 from confluent_kafka import Consumer
 from confluent_kafka.cimpl import KafkaException
 
-client_id = 'YOUR_CLIENT_ID'  # use the client you have received
-client_secret = 'YOUR_CLIENT_SECRET'  # use the secret you have received
-topic = f'vehiclesignals.{client_id}'  # use topic for the client you have received
-group = f'{client_id}.GROUP_ID_POSTFIX'  # you can change the postfix of your consumer group
-root_ca_file = './cluster-ca.crt'  # file path of your CA certificate (must be a PEM file)
+client_id = 'YOUR_CLIENT_ID'                 # If you are an MBCon customer, please use the client id you have received
+client_secret = 'YOUR_CLIENT_SECRET'         # If you are an MBCon customer, please use the secret you have received
+scope = 'SCOPE'                              # use the correct scope for your region
+topic = 'YOUR_DEDICATED_TOPIC'               # If you are an MBCon customer, please use topic name as 'vehiclesignals.<client name>'
+group = 'CONSUMER_GROUP'                     # If you are an MBCon customer, please use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE'
 
-bootstrap_url = 'BOOTSTRAP_URL'  # use the correct broker url for your region
+bootstrap_url = 'BOOTSTRAP_URL'              # use the correct broker url for your region
 oauth_token_api_url = 'OAUTH_TOKEN_API_URL'  # use the correct token API url for your region
 
 security_protocol = 'SASL_SSL'
@@ -62,8 +62,8 @@ def configure_consumer():
         'sasl.oauthbearer.method': 'OIDC',
         'sasl.oauthbearer.client.id': client_id,
         'sasl.oauthbearer.client.secret': client_secret,
+        'sasl.oauthbearer.scope': scope,
         'sasl.oauthbearer.token.endpoint.url': oauth_token_api_url,
-        'ssl.ca.location': root_ca_file,
         'group.id': group,
         'auto.offset.reset': 'earliest',
         'enable.auto.commit': True,

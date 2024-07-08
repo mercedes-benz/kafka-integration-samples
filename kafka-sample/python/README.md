@@ -2,7 +2,7 @@ kafka-oauth-demo.py
 ===================
 
 The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data
-from a Kafka topic API and.
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -22,45 +22,31 @@ You can use the [requirements.txt](./requirements.txt) to install the dependenci
 pip install -r requirements.txt
 ```
 
-On linux systems, the client expects the hosts' ca-certificate at `/etc/pki/tls/ca-bundle.crt` (fedora/redhat defaults).
-If your systems default location differs from that (e.g. Debian/Ubuntu), please make sure to copy or symlink the
-certificate.
+In this example we assume to use Let’s Encrypt CA for SSL/TLS certificates. The confluent-kafka-python-library by default uses the 
+operating system's default trusted root CA certificates for secure connections. Please ensure that your system has the 
+Let's Encrypt root certificates installed. These certificates are usually included in the system's trusted root store by
+default. If not, please install them manually.
 
-Example for Debian/Ubuntu distributions:
+For Debian/Ubuntu distributions, the system CA certificates can be updated as:
 ```bash
-mkdir -p /etc/pki/tls/certs
-ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt
+sudo update-ca-certificates
 ```
 
 How to use
 ----------
 
-In order to use the sample please change the following parameters. Those parameters should previously send to you.
+To use the sample, please change the following parameters, which should have been sent to you beforehand.
 
 ```python
-client_id = 'YOUR_CLIENT_ID'  # use the client you have received
-client_secret = 'YOUR_CLIENT_SECRET'  # use the secret you have received
-topic = f'vehiclesignals.{client_id}'  # use topic for the client you have received
-group = f'{client_id}.GROUP_ID_POSTFIX'  # you can change the postfix of your consumer group
+client_id = 'YOUR_CLIENT_ID'                 # If you are an MBCon customer, please use the client id you have received
+client_secret = 'YOUR_CLIENT_SECRET'         # If you are an MBCon customer, please use the secret you have received
+scope = 'SCOPE'                              # use the correct scope for your region
+topic = 'YOUR_DEDICATED_TOPIC'               # If you are an MBCon customer, please use topic name as 'vehiclesignals.<client name>'
+group = 'CONSUMER_GROUP'                     # If you are an MBCon customer, please use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE'
 
-bootstrap_url = 'BOOTSTRAP_URL'  # use the correct broker url for your region
+bootstrap_url = 'BOOTSTRAP_URL'              # use the correct broker url for your region
 oauth_token_api_url = 'OAUTH_TOKEN_API_URL'  # use the correct token API url for your region
 ```
-
-You also need to provide the CA certificate location.
-
-```python
-root_ca_file = './cluster-ca.crt'  # file path of your CA certificate (must be a PEM file)
-```
-
-The certificate file must be in PEM format. You can extract the PEM from a .p12 using `openssl` and `sed`:
-
-```bash
-openssl pkcs12 -in cluster-ca.p12 -nokeys | \
-sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cluster-ca.crt
-```
-
-Or export it, using a GUI-based tool like [keystore explorer](https://keystore-explorer.org/)
 
 after preparation, you can start the demo with 
 ```bash
@@ -79,4 +65,4 @@ confluent-kafka-python library as soon as it is available to your platform. In c
 connections will be closed, as soon as the token expires. The client will automatically reconnect, but you will receive
 error logs.
 
-Copyright 2023 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024 Mercedes-Benz Connectivity Services GmbH

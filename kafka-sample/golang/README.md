@@ -2,7 +2,7 @@ kafka-oauth-consumer.go
 ===================
 
 The Kafka OAuth demo shows how a customer can authenticate their client via OAuth2 to Kafka and how they can read data
-from a Kafka topic API.
+from a Kafka topic using the Kafka consumer API.
 
 This is only a sample without support and liability to its correctness!
 
@@ -22,45 +22,34 @@ go install
 go build kafka-oauth-consumer.go
 ```
 
-On linux systems, the client expects the hosts' ca-certificate at `/etc/pki/tls/ca-bundle.crt` (fedora/redhat defaults).
-If your systems default location differs from that (e.g. Debian/Ubuntu), please make sure to copy or symlink the
-certificate.
+In this example we assume to use Let’s Encrypt CA for SSL/TLS certificates. The confluent-kafka-go library uses the operating 
+system's default trusted root CA certificates for secure connections. Please ensure that your system has the 
+Let's Encrypt root certificates installed. These certificates are usually included in the system's trusted root store 
+by default. If not, please install them manually.
 
-Example for Debian/Ubuntu distributions:
+For Debian/Ubuntu distributions, the system CA certificates can be updated as:
 ```bash
-mkdir -p /etc/pki/tls/certs
-ln -s /etc/ssl/certs/ca-certificates.crt /etc/pki/tls/certs/ca-bundle.crt
+sudo update-ca-certificates
 ```
 
 How to use
 ----------
 
-In order to use the sample please change the following parameters.
+To use the sample, please change the following parameters, which should have been sent to you beforehand.
 
 ```go
 package main
 
 const (
-	ClientId         = "YOUR_CLIENT_ID"               // use the client you have received
-	ClientSecret     = "YOUR_CLIENT_SECRET"           // use the secret you have received
-	TopicName        = "vehiclesignals." + ClientId   // use topic for the client you have received
-	GroupId          = ClientId + ".GROUP_ID_POSTFIX" // you can change the postfix of your consumer group
-	RootCaFile       = "PATH_TO_CERT"                 // file path of your CA certificate (must be a PEM file)
-	BootstrapUrl     = "BOOTSTRAP_URL"                // use the correct broker url for your region
-	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"          // use the correct token API url for your region
-
+	ClientId         = "YOUR_CLIENT_ID"                 // If you are an MBCon customer, please use the client id you have received
+	ClientSecret     = "YOUR_CLIENT_SECRET"             // If you are an MBCon customer, please use the secret you have received
+	Scope            = "SCOPE"                          // use the correct scope for your region
+	TopicName        = "YOUR_DEDICATED_TOPIC"           // If you are an MBCon customer, please use topic name as 'vehiclesignals.<client name>'
+	GroupId          = "CONSUMER_GROUP"                 // If you are an MBCon customer, please use the received client name as the prefix. eg: '<client name>.GROUP_ID_POSTFIX_OF_YOUR_CHOICE'
+	BootstrapUrl     = "BOOTSTRAP_URL"                  // use the correct broker url for your region
+	OauthTokenApiUrl = "OAUTH_TOKEN_API_URL"            // use the correct token API url for your region
 )
 ```
-
-You also need to provide the CA certificate location. The certificate file must be in PEM format. You can extract the
-PEM from a .p12 using `openssl` and `sed`:
-
-```bash
-openssl pkcs12 -in cluster-ca.p12 -nokeys | \
-sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > cluster-ca.crt
-```
-
-Or export it, using a GUI-based tool like [keystore explorer](https://keystore-explorer.org/)
 
 after preparation, you can start the demo with
 
@@ -93,4 +82,4 @@ go build -tags dynamic kafka-oauth-consumer.go
 or implement a custom login callback. Details for installing librdkafka can be
 found [here](https://github.com/confluentinc/confluent-kafka-go#installing-librdkafka).
 
-Copyright 2023 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024 Mercedes-Benz Connectivity Services GmbH
