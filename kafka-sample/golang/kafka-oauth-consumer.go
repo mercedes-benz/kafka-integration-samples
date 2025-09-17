@@ -1,5 +1,5 @@
 //
-// Copyright 2022 Mercedes-Benz Connectivity Services GmbH
+// Copyright 2022-2025 Mercedes-Benz Connectivity Services GmbH
 //
 // SPDX-License-Identifier: MIT
 
