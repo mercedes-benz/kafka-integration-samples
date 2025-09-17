@@ -2,7 +2,7 @@
 # coding: utf-8
 
 #
-# Copyright 2021 Mercedes-Benz Connectivity Services GmbH
+# Copyright 2021-2025 Mercedes-Benz Connectivity Services GmbH
 #
 # SPDX-License-Identifier: MIT
 
@@ -65,7 +65,7 @@ def configure_consumer():
         'sasl.oauthbearer.scope': scope,
         'sasl.oauthbearer.token.endpoint.url': oauth_token_api_url,
         'group.id': group,
-        'auto.offset.reset': 'earliest',
+        'auto.offset.reset': 'latest',
         'enable.auto.commit': True,
     }
     if args.kafka_debug != ["none"]:
