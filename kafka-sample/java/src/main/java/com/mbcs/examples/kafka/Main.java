@@ -23,6 +23,7 @@ public class Main {
             System.err.println("Consumer config file '" + consumerConfig + "' could not be opened.");
             parser.printHelp();
         } catch (Exception e) {
+            e.printStackTrace();
             parser.printHelp();
         }
     }

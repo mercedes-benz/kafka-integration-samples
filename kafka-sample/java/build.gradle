@@ -1,16 +1,16 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version "$shadow_plugin_version"
+    id 'com.gradleup.shadow' version "$shadow_plugin_version"
 }
 
 group = 'com.mbcs'
 version = '0.1.0'
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(java_version)
-    }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.deprecation = true
+    options.release.set(java_version.toInteger())
 }
 
 repositories {
@@ -24,6 +24,7 @@ application {
 dependencies {
     // dependencies for kafka:
     implementation "org.apache.kafka:kafka-clients:$kafka_clients_version"
+    implementation "org.bitbucket.b_c:jose4j:$jose4j_version"
     runtimeOnly "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version" // needed for OAUTHBEARER
 
     // dependencies to enable logging with log4j2:

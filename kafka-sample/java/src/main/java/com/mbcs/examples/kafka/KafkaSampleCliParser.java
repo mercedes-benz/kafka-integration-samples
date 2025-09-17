@@ -1,6 +1,9 @@
 package com.mbcs.examples.kafka;
 
 import org.apache.commons.cli.*;
+import org.apache.commons.cli.help.HelpFormatter;
+
+import java.io.IOException;
 
 public class KafkaSampleCliParser {
     private final CommandLineParser parser = new DefaultParser();
@@ -15,14 +18,14 @@ public class KafkaSampleCliParser {
                 .hasArg()
                 .argName("topic name")
                 .type(String.class)
-                .build());
+                .get());
         options.addOption(Option.builder("c")
                 .longOpt("config")
                 .desc("path to kafka consumer config file")
                 .hasArg()
                 .argName("config file path")
                 .type(String.class)
-                .build());
+                .get());
 
         CommandLine cmd;
         cmd = parser.parse(options, args);
@@ -30,7 +33,11 @@ public class KafkaSampleCliParser {
     }
 
     public void printHelp() {
-        HelpFormatter hf = new HelpFormatter();
-        hf.printHelp("java -jar <executable .jar path>", options, true);
+        HelpFormatter hf = HelpFormatter.builder().get();
+        try {
+            hf.printHelp("java -jar <executable .jar path>", null, options, null, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
