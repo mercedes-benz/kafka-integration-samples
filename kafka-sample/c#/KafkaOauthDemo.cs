@@ -1,5 +1,5 @@
 ﻿//
-// Copyright 2021 Mercedes-Benz Connectivity Services GmbH
+// Copyright 2021-2025 Mercedes-Benz Connectivity Services GmbH
 //
 // SPDX-License-Identifier: MIT
 
@@ -22,19 +22,14 @@ namespace KafkaConsumer
             var bootstrapUrl = "BOOTSTRAP_URL";                   // use the correct broker url for your region
             var oauthTokenApiUrl = "OAUTH_TOKEN_API_URL";         // use the correct token API url for your region
 
-            var securityProtocol = SecurityProtocol.SaslSsl;
-            var saslMechanism = SaslMechanism.OAuthBearer;
-            var sslEndpointIdentificationAlgorithm = SslEndpointIdentificationAlgorithm.None;
-            var autoOffsetReset = AutoOffsetReset.Earliest;
-
             var config = new ConsumerConfig
             {
                 BootstrapServers = bootstrapUrl,
                 GroupId = consumerGroup,
 
-                SslEndpointIdentificationAlgorithm = sslEndpointIdentificationAlgorithm,
-                SecurityProtocol = securityProtocol,
-                SaslMechanism = saslMechanism,
+                SslEndpointIdentificationAlgorithm = SslEndpointIdentificationAlgorithm.None,
+                SecurityProtocol = SecurityProtocol.SaslSsl,
+                SaslMechanism = SaslMechanism.OAuthBearer,
 
                 SaslOauthbearerMethod = SaslOauthbearerMethod.Oidc,
                 SaslOauthbearerClientId = clientId,
@@ -43,7 +38,7 @@ namespace KafkaConsumer
                 SaslOauthbearerTokenEndpointUrl = oauthTokenApiUrl,
 
                 Debug = "consumer,security",
-                AutoOffsetReset = autoOffsetReset,
+                AutoOffsetReset = AutoOffsetReset.Latest,
             };
 
 
