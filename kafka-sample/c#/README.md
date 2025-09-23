@@ -9,7 +9,7 @@ This is only a sample without support and liability to its correctness!
 Prerequisite
 ------------
 
-The code is based on .Net 8.0 and the Confluent.Kafka client (2.1.1).
+The code is based on .Net 8.0 and the Confluent.Kafka client (2.11.1).
 
 Package Links:
 

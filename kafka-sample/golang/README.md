@@ -9,7 +9,7 @@ This is only a sample without support and liability to its correctness!
 Prerequisite
 ------------
 
-The code is based on Go 1.20 and the confluent-kafka-go v2.1.1.
+The code is based on Go 1.25 and the confluent-kafka-go v2.11.1.
 
 Links:
 

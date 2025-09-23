@@ -9,7 +9,7 @@ This is only a sample without support and liability to its correctness!
 Prerequisite
 ------------
 
-The script is based on Python 3.9 and [confluent-kafka-python](https://github.com/confluentinc/confluent-kafka-python)
+The script is based on Python 3.13 and [confluent-kafka-python](https://github.com/confluentinc/confluent-kafka-python)
 
 Related Links:
 
@@ -65,4 +65,4 @@ confluent-kafka-python library as soon as it is available to your platform. In c
 connections will be closed, as soon as the token expires. The client will automatically reconnect, but you will receive
 error logs.
 
-Copyright 2024 Mercedes-Benz Connectivity Services GmbH
+Copyright 2024-2025 Mercedes-Benz Connectivity Services GmbH
