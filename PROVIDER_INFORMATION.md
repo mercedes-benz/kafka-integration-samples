@@ -2,17 +2,17 @@
 
 ## Mercedes-Benz Connectivity Services GmbH
 
-Mercedes-Benz Connectivity Services GmbH
-Industriestraße 19-21
-70565 Stuttgart
+Mercedes-Benz Connectivity Services GmbH<br>
+Industriestraße 19-21<br>
+70565 Stuttgart<br>
+Germany<br>
 
-Deutschland/Germany
+Tel: +49 711 17 39012<br>
+mbconnectivity-services@mercedes-benz.com
 
-Phone.: +49 711 17 39012
-E-mail: mbconnectivity-services@mercedes-benz.com
+Management: Michael Drzymala, Stephan Bauer<br>
+Domicile and Court of Registry: Stuttgart<br>
+Commercial Register No.: 727792<br>
+VAT ID: DE263808040<br>
 
-
-Commercial Register: 727792
-Represented by: Sten Rauch, Marcus Eisenhardt
-
-https://connectivity.mercedes-benz.com/
+https://connectivity.mercedes-benz.com/imprint

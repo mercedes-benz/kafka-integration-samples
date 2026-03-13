@@ -5,7 +5,7 @@
 
 The Mercedes-Benz Free and Open Source Software (FOSS) Code of Conduct defines the proper behavior and the responsibilities for contributing and participating in FOSS communities to facilitate an open and welcoming culture that encourages active participation, learning, and constructive FOSS community interaction.
 
-The Mercedes-Benz FOSS Code of Conduct is created based on the [Mercedes-Benz Integrity Code](https://group.mercedes-benz.com/documents/company/compliance/daimler-integritycode.pdf) and extends and details the Mercedes-Benz Integrity Code with regard to the proper behavior for contribution and participation in FOSS communities. The Mercedes-Benz FOSS Code of Conduct does not restrict the Mercedes-Benz Integrity Code in any way.
+The Mercedes-Benz FOSS Code of Conduct is created based on the [Mercedes-Benz Integrity Code](https://group.mercedes-benz.com/documents/company/compliance/mercedes-benz-group-ag-integrity-code.pdf) and extends and details the Mercedes-Benz Integrity Code with regard to the proper behavior for contribution and participation in FOSS communities. The Mercedes-Benz FOSS Code of Conduct does not restrict the Mercedes-Benz Integrity Code in any way.
 
 The Mercedes-Benz FOSS Code of Conduct applies to all FOSS community interactions with Mercedes-Benz, of Mercedes-Benz, within Mercedes-Benz and within the public, whenever an individual is part of or representing a FOSS community.
 
@@ -44,4 +44,4 @@ Mercedes-Benz is responsible to define the values and put rules for proper behav
 
 To put the values for proper behavior into practice, the Mercedes-Benz FOSS Code of Conduct has to be enforced. Any Mercedes-Benz FOSS Code of Conduct irregularity (e. g. through unacceptable behavior) shall be reported to <foss@mercedes-benz.com>. After reporting a Mercedes-Benz FOSS Code of Conduct irregularity, the complaint will be evaluated and appropriate action will be taken if deemed necessary. The confidentiality with regard to the reporter of the Mercedes-Benz FOSS Code of Conduct irregularity is ensured by Mercedes-Benz at any time.
 
-If you have concrete indications of major risk violations in connection with the Mercedes-Benz Group, you can always contact the [Whistleblower System BPO](https://group.mercedes-benz.com/company/corporate-governance/compliance/bpo.html) directly.
+If you have concrete indications of major risk violations in connection with the Mercedes-Benz Group, you can always contact the [Whistleblower System BPO](https://group.mercedes-benz.com/sustainability/society-governance/compliance-integrity/bpo.html) directly.
